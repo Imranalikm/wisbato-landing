@@ -1,0 +1,153 @@
+@import "tailwindcss";
+
+/* ── Montreal Serial Font ── */
+@font-face {
+  font-family: "Montreal Serial";
+  src: url("/fonts/Montreal Serial ExtraLight.ttf") format("truetype");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Montreal Serial";
+  src: url("/fonts/Montreal Serial ExtraLight Italic.ttf") format("truetype");
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Montreal Serial";
+  src: url("/fonts/Montreal Serial Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Montreal Serial";
+  src: url("/fonts/Montreal Serial Light Italic.ttf") format("truetype");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Montreal Serial";
+  src: url("/fonts/Montreal Serial.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Montreal Serial";
+  src: url("/fonts/Montreal Serial Italic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Montreal Serial";
+  src: url("/fonts/Montreal Serial Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Montreal Serial";
+  src: url("/fonts/Montreal Serial Medium Italic.ttf") format("truetype");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Montreal Serial";
+  src: url("/fonts/Montreal Serial Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Montreal Serial";
+  src: url("/fonts/Montreal Serial Bold Italic.ttf") format("truetype");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Montreal Serial";
+  src: url("/fonts/Montreal Serial ExtraBold.ttf") format("truetype");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Montreal Serial";
+  src: url("/fonts/Montreal Serial ExtraBold Italic.ttf") format("truetype");
+  font-weight: 800;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Montreal Serial";
+  src: url("/fonts/Montreal Serial Heavy.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Montreal Serial";
+  src: url("/fonts/Montreal Serial Heavy Italic.ttf") format("truetype");
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ── Tailwind v4 Theme ── */
+@theme {
+  --font-montreal: "Montreal Serial", system-ui, sans-serif;
+
+  --color-warm-50: #fef7f0;
+  --color-warm-100: #fde8d0;
+  --color-warm-200: #f9c99e;
+  --color-warm-300: #f4a66b;
+  --color-warm-400: #ef8a42;
+  --color-warm-500: #e87330;
+  --color-warm-600: #d95c1f;
+  --color-warm-700: #b4461b;
+  --color-warm-800: #90381e;
+  --color-warm-900: #74301c;
+}
+
+/* ── Global Reset ── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-montreal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
