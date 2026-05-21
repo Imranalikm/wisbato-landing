@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import FadeInScroll from "./FadeInScroll";
 
 // ─── Project data ─────────────────────────────────────────────────────────────
 const PROJECTS = [
@@ -64,7 +65,7 @@ export default function MobileAppSection() {
         <div className="hidden lg:block h-full">
 
           {/* ── LEFT: text content ── */}
-          <div className="absolute left-[40px] top-[80px] flex flex-col gap-8 w-[380px]">
+          <FadeInScroll direction="right" className="absolute left-[40px] top-[80px] flex flex-col gap-8 w-[380px]">
             {/* Eyebrow */}
             <p
               className="text-[#EDEDED] text-2xl"
@@ -110,6 +111,7 @@ export default function MobileAppSection() {
 
             {/* Explore more CTA */}
             <button
+              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
               className="group relative flex items-center overflow-hidden rounded-[15px] bg-white h-[48px] w-[186px] border-none cursor-pointer transition-transform duration-150 active:scale-[0.97]"
             >
               <span className="flex-shrink-0 m-[5px] w-[38px] h-[38px] bg-[#F79135] rounded-[12px] flex items-center justify-center transition-transform duration-200 group-hover:rotate-3">
@@ -132,11 +134,10 @@ export default function MobileAppSection() {
               </span>
             <span className="pointer-events-none absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
             </button>
-          </div>
+          </FadeInScroll>
  
           {/* ── RIGHT: frosted glass detail panel + phone mockup ── */}
-          <div className="absolute right-[40px] top-0 bottom-0 flex items-center">
-            
+          <FadeInScroll direction="left" className="absolute right-[40px] top-0 bottom-0 flex items-center" delay={0.15}>
             {/* Wrapper to align card and phone at bottom exactly */}
             <div className="flex items-end gap-[40px] relative">
               
@@ -151,70 +152,70 @@ export default function MobileAppSection() {
                   overflow: "hidden",
                 }}
               >
-              {/* Animated content wrapper */}
-              <div
-                className="flex flex-col gap-4 h-full"
-                style={{
-                  opacity: animDir ? 0 : 1,
-                  transform: animDir
-                    ? `translateX(${animDir === "right" ? "20px" : "-20px"})`
-                    : "translateX(0)",
-                  transition: "opacity 0.22s ease, transform 0.22s ease",
-                }}
-              >
-                {/* Number + divider */}
-                <div className="flex flex-col gap-3">
-                  <span
-                    className="text-[#222] leading-none"
-                    style={{
-                      fontFamily: "'Montreal Serial', sans-serif",
-                      fontSize: "clamp(36px, 4vw, 50px)",
-                      fontWeight: 400,
-                    }}
-                  >
-                    {project.id}.
-                  </span>
-                  <div className="w-full border-t border-[rgba(102,102,102,0.4)]" />
-                </div>
+                {/* Animated content wrapper */}
+                <div
+                  className="flex flex-col gap-4 h-full"
+                  style={{
+                    opacity: animDir ? 0 : 1,
+                    transform: animDir
+                      ? `translateX(${animDir === "right" ? "20px" : "-20px"})`
+                      : "translateX(0)",
+                    transition: "opacity 0.22s ease, transform 0.22s ease",
+                  }}
+                >
+                  {/* Number + divider */}
+                  <div className="flex flex-col gap-3">
+                    <span
+                      className="text-[#222] leading-none"
+                      style={{
+                        fontFamily: "'Montreal Serial', sans-serif",
+                        fontSize: "clamp(36px, 4vw, 50px)",
+                        fontWeight: 400,
+                      }}
+                    >
+                      {project.id}.
+                    </span>
+                    <div className="w-full border-t border-[rgba(102,102,102,0.4)]" />
+                  </div>
 
-                {/* Project info */}
-                <div className="flex flex-col gap-3 flex-1">
-                  <h3
-                    className="text-[#222] leading-tight"
-                    style={{
-                      fontFamily: "'Montreal Serial', sans-serif",
-                      fontSize: "clamp(18px, 2.2vw, 26px)",
-                      fontWeight: 500,
-                    }}
-                  >
-                    {project.title}
-                  </h3>
-                  <p
-                    className="text-[#222] text-[18px]"
-                    style={{
-                      fontFamily: "'Montreal Serial', sans-serif",
-                      fontWeight: 400,
-                      lineHeight: "21px",
-                    }}
-                  >
-                    {project.subtitle}
-                  </p>
-                  <p
-                    className="flex-1"
-                    style={{
-                      color: "#222",
-                      fontFamily: "'Montreal Serial', sans-serif",
-                      fontSize: "15.875px",
-                      fontStyle: "normal",
-                      fontWeight: 300,
-                      lineHeight: "normal",
-                    }}
-                  >
-                    {project.description}
-                  </p>
+                  {/* Project info */}
+                  <div className="flex flex-col gap-3 flex-1">
+                    <h3
+                      className="text-[#222] leading-tight"
+                      style={{
+                        fontFamily: "'Montreal Serial', sans-serif",
+                        fontSize: "clamp(18px, 2.2vw, 26px)",
+                        fontWeight: 500,
+                      }}
+                    >
+                      {project.title}
+                    </h3>
+                    <p
+                      className="text-[#222] text-[18px]"
+                      style={{
+                        fontFamily: "'Montreal Serial', sans-serif",
+                        fontWeight: 400,
+                        lineHeight: "21px",
+                      }}
+                    >
+                      {project.subtitle}
+                    </p>
+                    <p
+                      className="flex-1"
+                      style={{
+                        color: "#222",
+                        fontFamily: "'Montreal Serial', sans-serif",
+                        fontSize: "15.875px",
+                        fontStyle: "normal",
+                        fontWeight: 300,
+                        lineHeight: "normal",
+                      }}
+                    >
+                      {project.description}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
 
               {/* Phone mockup container */}
               <div className="relative">
@@ -263,7 +264,7 @@ export default function MobileAppSection() {
                 </div>
               </div>
             </div>
-          </div>
+          </FadeInScroll>
 
           {/* Decorative circles */}
           <div
@@ -282,7 +283,7 @@ export default function MobileAppSection() {
         {/* ══════════════════════════════════════════════════════════════════ */}
         <div className="lg:hidden flex flex-col gap-8 p-6 md:p-10">
           {/* Text content */}
-          <div className="flex flex-col gap-4">
+          <FadeInScroll direction="up" className="flex flex-col gap-4">
             <p
               style={{
                 fontFamily: "'Montreal Serial', sans-serif",
@@ -326,6 +327,7 @@ export default function MobileAppSection() {
 
             {/* Explore more CTA — mobile */}
             <button
+              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
               className="group relative flex items-center overflow-hidden rounded-[15px] bg-white h-[44px] w-[170px] border-none cursor-pointer transition-transform duration-150 active:scale-[0.97] mt-2"
             >
               <span className="flex-shrink-0 m-[4px] w-[36px] h-[36px] bg-[#F79135] rounded-[11px] flex items-center justify-center transition-transform duration-200 group-hover:rotate-3">
@@ -347,10 +349,10 @@ export default function MobileAppSection() {
                 Explore more
               </span>
             </button>
-          </div>
+          </FadeInScroll>
 
           {/* Phone mockup — mobile */}
-          <div className="flex justify-center">
+          <FadeInScroll direction="up" className="flex justify-center" delay={0.1}>
             <div
               className="rounded-[30px] overflow-hidden"
               style={{
@@ -370,123 +372,127 @@ export default function MobileAppSection() {
                 className="w-full h-full object-cover"
               />
             </div>
-          </div>
+          </FadeInScroll>
 
           {/* Frosted glass project card — mobile */}
-          <div
-            className="w-full flex flex-col"
-            style={{
-              borderRadius: "16px",
-              background: "rgba(255,255,255,0.50)",
-              backdropFilter: "blur(8px)",
-              WebkitBackdropFilter: "blur(8px)",
-              padding: "20px",
-              overflow: "hidden",
-            }}
-          >
+          <FadeInScroll direction="up" className="w-full" delay={0.2}>
             <div
-              className="flex flex-col gap-4"
+              className="w-full flex flex-col"
               style={{
-                opacity: animDir ? 0 : 1,
-                transform: animDir
-                  ? `translateX(${animDir === "right" ? "20px" : "-20px"})`
-                  : "translateX(0)",
-                transition: "opacity 0.22s ease, transform 0.22s ease",
+                borderRadius: "16px",
+                background: "rgba(255,255,255,0.50)",
+                backdropFilter: "blur(8px)",
+                WebkitBackdropFilter: "blur(8px)",
+                padding: "20px",
+                overflow: "hidden",
               }}
             >
-              {/* Number + divider */}
-              <div className="flex flex-col gap-2">
-                <span
+              <div
+                className="flex flex-col gap-4"
+                style={{
+                  opacity: animDir ? 0 : 1,
+                  transform: animDir
+                    ? `translateX(${animDir === "right" ? "20px" : "-20px"})`
+                    : "translateX(0)",
+                  transition: "opacity 0.22s ease, transform 0.22s ease",
+                }}
+              >
+                {/* Number + divider */}
+                <div className="flex flex-col gap-2">
+                  <span
+                    style={{
+                      fontFamily: "'Montreal Serial', sans-serif",
+                      fontSize: "36px",
+                      fontWeight: 400,
+                      color: "#222",
+                      lineHeight: 1,
+                    }}
+                  >
+                    {project.id}.
+                  </span>
+                  <div style={{ width: "100%", height: "1px", background: "rgba(102,102,102,0.4)" }} />
+                </div>
+
+                {/* Project info */}
+                <h3
                   style={{
                     fontFamily: "'Montreal Serial', sans-serif",
-                    fontSize: "36px",
-                    fontWeight: 400,
+                    fontSize: "20px",
+                    fontWeight: 500,
                     color: "#222",
-                    lineHeight: 1,
+                    lineHeight: "1.2",
                   }}
                 >
-                  {project.id}.
-                </span>
-                <div style={{ width: "100%", height: "1px", background: "rgba(102,102,102,0.4)" }} />
+                  {project.title}
+                </h3>
+                <p
+                  style={{
+                    fontFamily: "'Montreal Serial', sans-serif",
+                    fontSize: "16px",
+                    fontWeight: 400,
+                    color: "#222",
+                    lineHeight: "20px",
+                  }}
+                >
+                  {project.subtitle}
+                </p>
+                <p
+                  style={{
+                    color: "#222",
+                    fontFamily: "'Montreal Serial', sans-serif",
+                    fontSize: "15.875px",
+                    fontStyle: "normal",
+                    fontWeight: 300,
+                    lineHeight: "normal",
+                  }}
+                >
+                  {project.description}
+                </p>
+
               </div>
-
-              {/* Project info */}
-              <h3
-                style={{
-                  fontFamily: "'Montreal Serial', sans-serif",
-                  fontSize: "20px",
-                  fontWeight: 500,
-                  color: "#222",
-                  lineHeight: "1.2",
-                }}
-              >
-                {project.title}
-              </h3>
-              <p
-                style={{
-                  fontFamily: "'Montreal Serial', sans-serif",
-                  fontSize: "16px",
-                  fontWeight: 400,
-                  color: "#222",
-                  lineHeight: "20px",
-                }}
-              >
-                {project.subtitle}
-              </p>
-              <p
-                style={{
-                  color: "#222",
-                  fontFamily: "'Montreal Serial', sans-serif",
-                  fontSize: "15.875px",
-                  fontStyle: "normal",
-                  fontWeight: 300,
-                  lineHeight: "normal",
-                }}
-              >
-                {project.description}
-              </p>
-
             </div>
-          </div>
+          </FadeInScroll>
 
           {/* Navigation — mobile */}
-          <div className="flex items-center gap-4">
-            <button
-              onClick={() => navigate("left")}
-              className="w-[46px] h-[46px] rounded-full bg-white/90 flex items-center justify-center border-none cursor-pointer transition-all duration-200 active:scale-95"
-              aria-label="Previous project"
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#333" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M15 18l-6-6 6-6" />
-              </svg>
-            </button>
-            <button
-              onClick={() => navigate("right")}
-              className="w-[46px] h-[46px] rounded-full bg-white/90 flex items-center justify-center border-none cursor-pointer transition-all duration-200 active:scale-95"
-              aria-label="Next project"
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#333" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M9 18l6-6-6-6" />
-              </svg>
-            </button>
+          <FadeInScroll direction="up" className="flex items-center gap-4" delay={0.25}>
+            <div className="flex items-center gap-4">
+              <button
+                onClick={() => navigate("left")}
+                className="w-[46px] h-[46px] rounded-full bg-white/90 flex items-center justify-center border-none cursor-pointer transition-all duration-200 active:scale-95"
+                aria-label="Previous project"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#333" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M15 18l-6-6 6-6" />
+                </svg>
+              </button>
+              <button
+                onClick={() => navigate("right")}
+                className="w-[46px] h-[46px] rounded-full bg-white/90 flex items-center justify-center border-none cursor-pointer transition-all duration-200 active:scale-95"
+                aria-label="Next project"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#333" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M9 18l6-6-6-6" />
+                </svg>
+              </button>
 
-            {/* Progress dots */}
-            <div className="flex items-center gap-2 ml-2">
-              {PROJECTS.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setCurrent(i)}
-                  className="rounded-full border-none cursor-pointer transition-all duration-300"
-                  style={{
-                    width: i === current ? "24px" : "8px",
-                    height: "8px",
-                    background: i === current ? "white" : "rgba(255,255,255,0.4)",
-                  }}
-                  aria-label={`Go to project ${i + 1}`}
-                />
-              ))}
+              {/* Progress dots */}
+              <div className="flex items-center gap-2 ml-2">
+                {PROJECTS.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setCurrent(i)}
+                    className="rounded-full border-none cursor-pointer transition-all duration-300"
+                    style={{
+                      width: i === current ? "24px" : "8px",
+                      height: "8px",
+                      background: i === current ? "white" : "rgba(255,255,255,0.4)",
+                    }}
+                    aria-label={`Go to project ${i + 1}`}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
+          </FadeInScroll>
 
           {/* Decorative circles — mobile */}
           <div

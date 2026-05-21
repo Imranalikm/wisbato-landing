@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import FadeInScroll from './FadeInScroll';
 
 const TESTIMONIALS = [
   {
@@ -68,23 +69,26 @@ export default function TestimonialsSection() {
     <section className="w-full bg-[#EAE6DD] py-16 sm:py-20 px-4 md:px-8 lg:px-[50px] flex flex-col items-center justify-center overflow-hidden select-none">
       
       {/* Title */}
-      <h2 
-        className="text-[#222222] text-center mb-16 sm:mb-24"
-        style={{
-          fontFamily: "'Montreal Serial', sans-serif",
-          fontSize: "clamp(30px, 4.5vw, 56px)",
-          fontWeight: 400,
-          lineHeight: "1.1",
-        }}
-      >
-        What <span className="text-[#F79135] font-normal">Our Clients</span> Truly Think
-      </h2>
+      <FadeInScroll direction="up">
+        <h2 
+          className="text-[#222222] text-center mb-16 sm:mb-24"
+          style={{
+            fontFamily: "'Montreal Serial', sans-serif",
+            fontSize: "clamp(30px, 4.5vw, 56px)",
+            fontWeight: 400,
+            lineHeight: "1.1",
+          }}
+        >
+          What <span className="text-[#F79135] font-normal">Our Clients</span> Truly Think
+        </h2>
+      </FadeInScroll>
 
       {/* Stack Container */}
-      <div 
-        className="relative w-full max-w-[620px] h-[440px] sm:h-[460px] flex items-center justify-center cursor-pointer"
-        onClick={handleCardClick}
-      >
+      <FadeInScroll direction="up" delay={0.15} className="w-full flex justify-center">
+        <div 
+          className="relative w-full max-w-[620px] h-[440px] sm:h-[460px] flex items-center justify-center cursor-pointer"
+          onClick={handleCardClick}
+        >
         
         {/* Testimonial Cards */}
         {renderCards.map(({ item, depth }) => {
@@ -247,6 +251,7 @@ export default function TestimonialsSection() {
         })}
 
       </div>
+      </FadeInScroll>
     </section>
   );
 }

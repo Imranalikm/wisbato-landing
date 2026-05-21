@@ -47,6 +47,7 @@ const Navbar = () => {
         <motion.button
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
+          onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
           style={{
             height: "clamp(40px, 5vw, 51px)",
             backgroundColor: "white",

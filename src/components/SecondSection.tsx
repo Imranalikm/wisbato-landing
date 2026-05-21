@@ -5,11 +5,13 @@ import ContactForm from "./ContactForm";
 
 const SecondSection = () => {
   return (
-    <section className="relative overflow-hidden bg-[#E8DFD1] w-full max-w-[1440px] h-[2573px]">
+    <section className="relative bg-[#E8DFD1] w-full py-4 lg:py-10 flex flex-col gap-2 sm:gap-4 overflow-x-hidden">
       <PainPoints />
-      <StatsUSPs />
-      <DigitalGrowth />
-      <ContactForm />
+      <div className="flex flex-col">
+        <DigitalGrowth />
+        <StatsUSPs />
+        <ContactForm />
+      </div>
     </section>
   );
 };

@@ -8,6 +8,7 @@
   font-style: normal;
   font-display: swap;
 }
+
 @font-face {
   font-family: "Montreal Serial";
   src: url("/fonts/Montreal Serial ExtraLight Italic.ttf") format("truetype");
@@ -23,6 +24,7 @@
   font-style: normal;
   font-display: swap;
 }
+
 @font-face {
   font-family: "Montreal Serial";
   src: url("/fonts/Montreal Serial Light Italic.ttf") format("truetype");
@@ -38,6 +40,7 @@
   font-style: normal;
   font-display: swap;
 }
+
 @font-face {
   font-family: "Montreal Serial";
   src: url("/fonts/Montreal Serial Italic.ttf") format("truetype");
@@ -53,6 +56,7 @@
   font-style: normal;
   font-display: swap;
 }
+
 @font-face {
   font-family: "Montreal Serial";
   src: url("/fonts/Montreal Serial Medium Italic.ttf") format("truetype");
@@ -68,6 +72,7 @@
   font-style: normal;
   font-display: swap;
 }
+
 @font-face {
   font-family: "Montreal Serial";
   src: url("/fonts/Montreal Serial Bold Italic.ttf") format("truetype");
@@ -83,6 +88,7 @@
   font-style: normal;
   font-display: swap;
 }
+
 @font-face {
   font-family: "Montreal Serial";
   src: url("/fonts/Montreal Serial ExtraBold Italic.ttf") format("truetype");
@@ -98,6 +104,7 @@
   font-style: normal;
   font-display: swap;
 }
+
 @font-face {
   font-family: "Montreal Serial";
   src: url("/fonts/Montreal Serial Heavy Italic.ttf") format("truetype");
@@ -146,8 +153,11 @@ body {
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
 /* Hide scrollbar for IE, Edge and Firefox */
 .no-scrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }

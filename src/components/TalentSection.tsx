@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import FadeInScroll from "./FadeInScroll";
 
 // Tool icons as React components
 
@@ -210,7 +211,7 @@ export default function TalentSection() {
       <div className="max-w-[1340px] mx-auto bg-[#F79135] rounded-[30px] px-10 py-12 lg:py-0 flex flex-col lg:flex-row gap-0 lg:gap-16 relative overflow-hidden lg:h-[700px]">
         
         {/* Left Content */}
-        <div className="max-w-[553px] w-full flex flex-col lg:h-full lg:pt-20 lg:pb-16 z-10 relative">
+        <FadeInScroll direction="left" className="max-w-[553px] w-full flex flex-col lg:h-full lg:pt-20 lg:pb-16 z-10 relative">
           <div className="flex flex-col gap-9">
             <h2 className="text-[#222222] text-[40px] sm:text-[60px] leading-[45px] sm:leading-[60px] font-normal">
               Where Talent Meets Technology
@@ -222,7 +223,10 @@ export default function TalentSection() {
               complex challenges into seamless digital success stories.
             </p>
 
-            <button className="flex items-center gap-3 mt-2 group self-start hover:opacity-85 transition-opacity z-20 relative">
+            <button 
+              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+              className="flex items-center gap-3 mt-2 group self-start hover:opacity-85 transition-opacity z-20 relative"
+            >
               <span className="text-[20px] sm:text-[22px] text-[#222222]">
                 View our team
               </span>
@@ -239,60 +243,62 @@ export default function TalentSection() {
             alt="3D VR Character"
             className="lg:absolute lg:bottom-0 lg:right-[-25px] w-[300px] sm:w-[350px] lg:w-[390px] xl:w-[410px] h-auto object-contain select-none pointer-events-none mt-8 lg:mt-0"
           />
-        </div>
+        </FadeInScroll>
 
         {/* Right Cards Grid */}
-        <div 
-          ref={scrollContainerRef}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-          className="grid grid-cols-1 md:grid-cols-2 gap-6 flex-1 z-10 lg:h-full overflow-y-auto no-scrollbar lg:py-8"
-        >
-          {cardsToRender.map((card, index) => (
-            <div 
-              key={`${card.id}-${index}`}
-              className="bg-[#F3EBDF] rounded-[20px] pt-6 pb-10 px-5 flex flex-col justify-between shadow-sm hover:translate-y-[-4px] hover:shadow-md transition-all duration-300 min-h-[240px]"
-            >
-              <div>
-                {/* Header: Photo & Title */}
-                <div className="flex items-center gap-4 mb-4">
-                  <img
-                    src={card.avatar}
-                    alt=""
-                    className="w-[54px] h-[54px] rounded-full object-cover overflow-hidden"
-                  />
+        <FadeInScroll direction="right" delay={0.2} className="flex-1 z-10 lg:h-full w-full">
+          <div 
+            ref={scrollContainerRef}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            className="grid grid-cols-1 md:grid-cols-2 gap-6 h-full overflow-y-auto no-scrollbar lg:py-8"
+          >
+            {cardsToRender.map((card, index) => (
+              <div 
+                key={`${card.id}-${index}`}
+                className="bg-[#F3EBDF] rounded-[20px] pt-6 pb-10 px-5 flex flex-col justify-between shadow-sm hover:translate-y-[-4px] hover:shadow-md transition-all duration-300 min-h-[240px]"
+              >
+                <div>
+                  {/* Header: Photo & Title */}
+                  <div className="flex items-center gap-4 mb-4">
+                    <img
+                      src={card.avatar}
+                      alt=""
+                      className="w-[54px] h-[54px] rounded-full object-cover overflow-hidden"
+                    />
 
-                  <div>
-                    <h3 className="text-[17px] text-[#222222] font-semibold leading-[1.25]">
-                      {card.title}
-                    </h3>
+                    <div>
+                      <h3 className="text-[17px] text-[#222222] font-semibold leading-[1.25]">
+                        {card.title}
+                      </h3>
 
-                    <p className="text-[14px] text-[#222222] font-light mt-0.5">
-                      {card.subtitle}
-                    </p>
+                      <p className="text-[14px] text-[#222222] font-light mt-0.5">
+                        {card.subtitle}
+                      </p>
+                    </div>
                   </div>
+
+                  {/* Description */}
+                  <p className="text-[12px] text-[#333333] leading-[18px] mb-4">
+                    {card.description}
+                  </p>
                 </div>
 
-                {/* Description */}
-                <p className="text-[12px] text-[#333333] leading-[18px] mb-4">
-                  {card.description}
-                </p>
+                {/* Tool Icons */}
+                <div className="flex gap-3 mt-auto">
+                  {card.tools.map((tool, idx) => (
+                    <div 
+                      key={idx}
+                      className={`w-[44px] h-[44px] ${getToolBg(tool)} rounded-[10px] flex items-center justify-center overflow-hidden shadow-[0_1px_2px_rgba(0,0,0,0.05)] hover:scale-105 transition-transform duration-200`}
+                    >
+                      {renderToolIcon(tool)}
+                    </div>
+                  ))}
+                </div>
               </div>
-
-              {/* Tool Icons */}
-              <div className="flex gap-3 mt-auto">
-                {card.tools.map((tool, idx) => (
-                  <div 
-                    key={idx}
-                    className={`w-[44px] h-[44px] ${getToolBg(tool)} rounded-[10px] flex items-center justify-center overflow-hidden shadow-[0_1px_2px_rgba(0,0,0,0.05)] hover:scale-105 transition-transform duration-200`}
-                  >
-                    {renderToolIcon(tool)}
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        </FadeInScroll>
 
         {/* Show More / Show Less Button on mobile only */}
         {!isDesktop && (

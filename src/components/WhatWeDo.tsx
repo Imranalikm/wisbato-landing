@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import FadeInScroll from "./FadeInScroll";
 
 // ─── Service data ────────────────────────────────────────────────────────────
 const SERVICES = [
@@ -91,16 +92,22 @@ export default function WhatWeDo() {
       <div className="relative z-10 w-full max-w-[1440px] mx-auto px-5 lg:px-[50px] flex-1 lg:pt-[80px] flex flex-col lg:flex-row items-center lg:items-end justify-center lg:justify-between gap-12 lg:gap-16">
 
         {/* ── LEFT: illustration ── */}
-        <div className="hidden lg:flex flex-shrink-0 w-[85%] sm:w-[60%] lg:w-[600px] justify-center order-2 lg:order-1 mt-auto">
+        <FadeInScroll
+          direction="right"
+          className="hidden lg:flex flex-shrink-0 w-[85%] sm:w-[60%] lg:w-[600px] justify-center order-2 lg:order-1 mt-auto"
+        >
           <img
             src="/what_we_do.png"
             alt="What we do illustration"
             className="w-full h-auto object-contain"
           />
-        </div>
+        </FadeInScroll>
 
         {/* ── RIGHT: fanned card deck ── */}
-        <div className="w-full flex-1 flex flex-col items-center self-center order-1 lg:order-2 z-10 my-auto pt-[50px] lg:pt-0">
+        <FadeInScroll
+          direction="left"
+          className="w-full flex-1 flex flex-col items-center self-center order-1 lg:order-2 z-10 my-auto pt-[50px] lg:pt-0"
+        >
           {/* Card stack */}
           <div
             className="relative w-full max-w-[668px] cursor-pointer h-[340px] sm:h-[400px] lg:h-[420px] scale-75 sm:scale-[0.85] lg:scale-100 origin-center transition-transform duration-300"
@@ -147,7 +154,7 @@ export default function WhatWeDo() {
               );
             })}
           </div>
-        </div>
+        </FadeInScroll>
 
       </div>
     </section>
@@ -256,7 +263,10 @@ function ServiceCard({ service, isTop, opacity }: { service: any, isTop: boolean
               margin: 0,
               padding: 0,
             }}
-            onClick={(e) => e.stopPropagation()}
+            onClick={(e) => {
+              e.stopPropagation();
+              document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+            }}
           >
             {/* White pill with orange arrow */}
             <div
