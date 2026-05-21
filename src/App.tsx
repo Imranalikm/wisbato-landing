@@ -12,6 +12,8 @@ import TalentSection from "./components/TalentSection";
 import Footer from "./components/Footer";
 import SecondSection from "./components/SecondSection";
 import Preloader from "./components/Preloader";
+import FloatingWhatsApp from "./components/FloatingWhatsApp";
+
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -44,6 +46,8 @@ function App() {
         <TalentSection />
         <Footer />
       </motion.main>
+      
+      <FloatingWhatsApp />
     </>
   );
 }

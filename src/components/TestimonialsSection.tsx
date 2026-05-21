@@ -4,21 +4,21 @@ import FadeInScroll from './FadeInScroll';
 const TESTIMONIALS = [
   {
     id: 1,
-    text: "Working with Wisbato was a game-changer for our business. Their AI-driven approach and strategic digital marketing significantly improved our online visibility and lead generation. The team understood our goals clearly, delivered a modern, high-performing website, and maintained excellent communication throughout the process. We truly felt supported from start to finish.",
+    text: "Working with Wisbato was a game-changer for our business. Their AI-driven approach and strategic marketing significantly improved our online visibility. The team delivered a modern, high-performing website and maintained excellent communication throughout.",
     author: "Sanju samson",
     role: "ABC Company ltd",
     avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?fit=crop&w=150&h=150",
   },
   {
     id: 2,
-    text: "Wisbato's development expertise completely transformed our operations. They rebuilt our e-commerce platform with a user-centric design that boosted conversion rates by 40% in just two months. Their proactive communication and deep technical skills are top-notch.",
+    text: "Wisbato's development expertise completely transformed our operations. They rebuilt our e-commerce platform with a user-centric design that boosted conversion rates by 40% in just two months.",
     author: "Sarah Jenkins",
     role: "Global Commerce Corp",
     avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?fit=crop&w=150&h=150",
   },
   {
     id: 3,
-    text: "Their strategic vision and execution were flawless. Wisbato built a custom mobile app for our field sales team that works perfectly offline. The project was delivered on time and within budget, with outstanding post-launch support.",
+    text: "Their strategic vision and execution were flawless. Wisbato built a custom mobile app for our field sales team that works perfectly offline, delivered on time and within budget.",
     author: "David Chen",
     role: "Nexus Logistics",
     avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?fit=crop&w=150&h=150",
@@ -71,7 +71,7 @@ export default function TestimonialsSection() {
       {/* Title */}
       <FadeInScroll direction="up">
         <h2 
-          className="text-[#222222] text-center mb-16 sm:mb-24"
+          className="text-[#222222] text-center mb-28 sm:mb-32"
           style={{
             fontFamily: "'Montreal Serial', sans-serif",
             fontSize: "clamp(30px, 4.5vw, 56px)",
@@ -86,7 +86,7 @@ export default function TestimonialsSection() {
       {/* Stack Container */}
       <FadeInScroll direction="up" delay={0.15} className="w-full flex justify-center">
         <div 
-          className="relative w-full max-w-[620px] h-[440px] sm:h-[460px] flex items-center justify-center cursor-pointer"
+          className="relative w-full max-w-[620px] h-[290px] sm:h-[460px] flex items-center justify-center cursor-pointer"
           onClick={handleCardClick}
         >
         
@@ -122,7 +122,7 @@ export default function TestimonialsSection() {
           return (
             <div
               key={item.id}
-              className="absolute w-full h-[390px] sm:h-[410px] transition-all duration-500 ease-out"
+              className="absolute w-full h-[240px] sm:h-[410px] transition-all duration-500 ease-out"
               style={{
                 transform: `translateY(${translateY}px) translateX(${translateX}px) rotate(${rotate}deg) scale(${scale})`,
                 zIndex: depth,
@@ -171,14 +171,14 @@ export default function TestimonialsSection() {
               )}
 
               {/* Interactive Content Wrapper */}
-              <div className="absolute inset-0 p-5 sm:p-10 z-20 flex flex-col justify-between">
+              <div className="absolute inset-0 p-4 sm:p-10 z-20 flex flex-col justify-between">
                 {/* Card Top: Logo & Dots */}
                 <div className="flex justify-between items-center">
                   {/* LogoIpsum logo from public folder */}
                   <img 
                     src="/logoipsum.svg" 
                     alt="LogoIpsum" 
-                    className="h-6 sm:h-[30px] w-auto object-contain"
+                    className="h-[18px] sm:h-[30px] w-auto object-contain"
                   />
 
                   {/* 3 horizontal dots (selected card is black, others are grey) */}
@@ -190,9 +190,9 @@ export default function TestimonialsSection() {
                 </div>
 
                 {/* Quotes & Text Content */}
-                <div className="flex-1 flex flex-col justify-center mt-6 sm:mt-8 mb-4 sm:mb-6">
+                <div className="flex-1 flex flex-col justify-center mt-2 sm:mt-8 mb-1 sm:mb-6">
                   {/* Custom Slanted Quote Mark SVG */}
-                  <svg width="24" height="17" viewBox="0 0 28 20" fill="none" xmlns="http://www.w3.org/2000/svg" className="opacity-90 mb-2 sm:mb-4">
+                  <svg viewBox="0 0 28 20" fill="none" xmlns="http://www.w3.org/2000/svg" className="opacity-90 mb-1 sm:mb-4 w-[18px] sm:w-[24px] h-[13px] sm:h-[17px]">
                     <path d="M8 0L2 16H0L5.5 0H8ZM20 0L14 16H12L17.5 0H20Z" fill="white" />
                   </svg>
 
@@ -200,7 +200,7 @@ export default function TestimonialsSection() {
                     className="text-[#FFFDF9] font-normal leading-relaxed tracking-wide"
                     style={{
                       fontFamily: "'Montreal Serial', sans-serif",
-                      fontSize: 'clamp(13px, 4vw, 17px)',
+                      fontSize: 'clamp(10.5px, 2.7vw, 17px)',
                     }}
                   >
                     {item.text}
@@ -208,22 +208,22 @@ export default function TestimonialsSection() {
                 </div>
 
                 {/* Card Footer: Profile Info & LinkedIn */}
-                <div className="flex items-center justify-between border-t border-white/20 pt-4 sm:pt-5">
+                <div className="flex items-center justify-between border-t border-white/20 pt-2 sm:pt-5">
                   <div className="flex items-center gap-3 sm:gap-4">
                     <img
                       src={item.avatar}
                       alt={item.author}
-                      className="w-10 h-10 sm:w-[52px] sm:h-[52px] rounded-full object-cover border border-white/20"
+                      className="w-8 h-8 sm:w-[52px] sm:h-[52px] rounded-full object-cover border border-white/20"
                     />
                     <div className="flex flex-col">
                       <span 
-                        className="text-white text-sm sm:text-lg font-medium leading-tight"
+                        className="text-white text-xs sm:text-lg font-medium leading-tight"
                         style={{ fontFamily: "'Montreal Serial', sans-serif" }}
                       >
                         {item.author}
                       </span>
                       <span 
-                        className="text-white/80 text-[11px] sm:text-sm font-light mt-0.5"
+                        className="text-white/80 text-[10px] sm:text-sm font-light mt-0.5"
                         style={{ fontFamily: "'Montreal Serial', sans-serif" }}
                       >
                         {item.role}
@@ -239,7 +239,7 @@ export default function TestimonialsSection() {
                     className="hover:scale-105 transition-transform"
                     onClick={(e) => e.stopPropagation()}
                   >
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="sm:w-[30px] sm:h-[30px]">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 sm:w-[30px] sm:h-[30px]">
                       <rect width="24" height="24" rx="4" fill="#0077B5" />
                       <path d="M19 19H16V14.25C16 13.12 15.98 11.67 14.43 11.67C12.86 11.67 12.62 12.9 12.62 14.17V19H9.62V9.5H12.5V10.8H12.54C12.94 10.04 13.92 9.25 15.36 9.25C18.36 9.25 18.92 11.22 18.92 13.8V19H19ZM5.37 8.12C4.41 8.12 3.62 7.33 3.62 6.37C3.62 5.41 4.41 4.62 5.37 4.62C6.33 4.62 7.12 5.41 7.12 6.37C7.12 7.33 6.33 8.12 5.37 8.12ZM6.87 19H3.87V9.5H6.87V19Z" fill="white" />
                     </svg>

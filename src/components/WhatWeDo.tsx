@@ -56,6 +56,7 @@ const SERVICES = [
 // ─── Main Component ───────────────────────────────────────────────────────────
 export default function WhatWeDo() {
   const [activeIndex, setActiveIndex] = useState(SERVICES.length - 1);
+  const [isMobile, setIsMobile] = useState(false);
 
   // Automatically cycle through cards every 4 seconds
   useEffect(() => {
@@ -63,6 +64,16 @@ export default function WhatWeDo() {
       setActiveIndex((prev) => (prev + 1) % SERVICES.length);
     }, 4000);
     return () => clearInterval(interval);
+  }, []);
+
+  // Responsive mobile screen check
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const handleCardClick = (clickedIndex: number) => {
@@ -83,18 +94,35 @@ export default function WhatWeDo() {
 
   return (
     <section
-      className="relative w-full overflow-x-hidden lg:overflow-hidden flex flex-col py-20 lg:py-0 lg:h-screen"
+      className="relative w-full overflow-x-hidden lg:overflow-hidden flex flex-col pt-12 pb-0 lg:py-0 lg:h-screen"
       style={{
         background: "linear-gradient(180deg, #EB8A32 0%, #EAF7F9 100%)",
       }}
     >
+      {/* ── Heading ── */}
+      <div className="w-full text-center pt-4 px-5 z-20 pointer-events-none lg:hidden">
+        <FadeInScroll direction="down">
+          <h2 
+            className="text-black text-center"
+            style={{
+              fontFamily: "'Montreal Serial', sans-serif",
+              fontSize: "clamp(32px, 5vw, 56px)",
+              fontWeight: 400,
+              lineHeight: "1.1",
+            }}
+          >
+            What We Do
+          </h2>
+        </FadeInScroll>
+      </div>
+
       {/* ── Two-column layout ── */}
-      <div className="relative z-10 w-full max-w-[1440px] mx-auto px-5 lg:px-[50px] flex-1 lg:pt-[80px] flex flex-col lg:flex-row items-center lg:items-end justify-center lg:justify-between gap-12 lg:gap-16">
+      <div className="relative z-10 w-full max-w-[1440px] mx-auto px-5 lg:px-[50px] flex-1 lg:pt-[20px] flex flex-col lg:flex-row items-center lg:items-end justify-center lg:justify-between gap-12 lg:gap-16">
 
         {/* ── LEFT: illustration ── */}
         <FadeInScroll
           direction="right"
-          className="hidden lg:flex flex-shrink-0 w-[85%] sm:w-[60%] lg:w-[600px] justify-center order-2 lg:order-1 mt-auto"
+          className="hidden lg:flex flex-shrink-0 w-[85%] sm:w-[60%] lg:w-[600px] justify-center order-2 lg:order-1"
         >
           <img
             src="/what_we_do.png"
@@ -106,11 +134,11 @@ export default function WhatWeDo() {
         {/* ── RIGHT: fanned card deck ── */}
         <FadeInScroll
           direction="left"
-          className="w-full flex-1 flex flex-col items-center self-center order-1 lg:order-2 z-10 my-auto pt-[50px] lg:pt-0"
+          className="w-full flex-1 flex flex-col items-center lg:items-end order-1 lg:order-2 z-10 pt-[40px] lg:pt-0"
         >
           {/* Card stack */}
           <div
-            className="relative w-full max-w-[668px] cursor-pointer h-[340px] sm:h-[400px] lg:h-[420px] scale-75 sm:scale-[0.85] lg:scale-100 origin-center transition-transform duration-300"
+            className="relative w-full max-w-[668px] cursor-pointer h-[320px] sm:h-[400px] lg:h-[420px] transition-transform duration-300"
             onClick={() => handleCardClick(activeIndex)}
           >
             {stack.map(({ service, depth }) => {
@@ -118,15 +146,15 @@ export default function WhatWeDo() {
               const stackDepth = SERVICES.length - 1 - depth;
               
               // Uniform fan rotation (opposite side)
-              const rotDeg = stackDepth * -4.5;
+              const rotDeg = stackDepth * (isMobile ? -3 : -4.5);
               
               // Tighter, controlled fan offsets (Up and Left)
-              const fanX = stackDepth * -12;
-              const fanY = stackDepth * -12;
+              const fanX = stackDepth * (isMobile ? -8 : -12);
+              const fanY = stackDepth * (isMobile ? -8 : -12);
               
               // Mathematically balance the center of mass
-              const maxFanX = (SERVICES.length - 1) * -12;
-              const maxFanY = (SERVICES.length - 1) * -12;
+              const maxFanX = (SERVICES.length - 1) * (isMobile ? -8 : -12);
+              const maxFanY = (SERVICES.length - 1) * (isMobile ? -8 : -12);
               
               const offsetX = fanX - (maxFanX / 2);
               const offsetY = fanY - (maxFanY / 2);
@@ -149,6 +177,7 @@ export default function WhatWeDo() {
                     service={service}
                     isTop={isTop}
                     opacity={opacity}
+                    isMobile={isMobile}
                   />
                 </div>
               );
@@ -156,21 +185,47 @@ export default function WhatWeDo() {
           </div>
         </FadeInScroll>
 
+        {/* ── Mobile/Tablet Illustration: displayed after the cards, flush at bottom ── */}
+        <FadeInScroll
+          direction="up"
+          className="flex lg:hidden flex-shrink-0 w-[85%] sm:w-[60%] justify-center order-3 mt-auto"
+        >
+          <img
+            src="/what_we_do.png"
+            alt="What we do illustration"
+            className="w-full h-auto object-contain block"
+            style={{ display: 'block', margin: 0, padding: 0 }}
+          />
+        </FadeInScroll>
+
       </div>
     </section>
   );
 }
 
+
 // ─── Individual Service Card ──────────────────────────────────────────────────
-function ServiceCard({ service, isTop, opacity }: { service: any, isTop: boolean, opacity: number }) {
+function ServiceCard({ 
+  service, 
+  isTop, 
+  opacity,
+  isMobile
+}: { 
+  service: any; 
+  isTop: boolean; 
+  opacity: number;
+  isMobile: boolean;
+}) {
   return (
     <div
       className="flex flex-col w-full"
       style={{
         maxWidth: "667.965px",
-        minHeight: "381.922px",
-        padding: "17.578px 15.98px 17.578px 31.96px",
-        gap: "7.99px",
+        minHeight: isMobile ? "290px" : "381.922px",
+        padding: isMobile 
+          ? "14px 14px 14px 20px" 
+          : "17.578px 15.98px 17.578px 31.96px",
+        gap: isMobile ? "6px" : "7.99px",
         borderRadius: "7.99px",
         background: "rgba(255, 255, 255, 0.50)",
         backdropFilter: isTop ? "blur(8px)" : "none",
@@ -186,13 +241,13 @@ function ServiceCard({ service, isTop, opacity }: { service: any, isTop: boolean
       }}
     >
       {/* Card header */}
-      <div className="flex flex-col" style={{ gap: "12px", margin: 0, padding: 0 }}>
+      <div className="flex flex-col" style={{ gap: isMobile ? "6px" : "12px", margin: 0, padding: 0 }}>
         <div className="flex items-center justify-between" style={{ margin: 0, padding: 0 }}>
           <span
             className="text-[#222] leading-none"
             style={{
               fontFamily: "'Montreal Serial', 'Playfair Display', Georgia, serif",
-              fontSize: "clamp(28px, 4vw, 40px)",
+              fontSize: isMobile ? "24px" : "clamp(28px, 4vw, 40px)",
               fontWeight: 400,
               margin: 0,
               padding: 0,
@@ -204,7 +259,12 @@ function ServiceCard({ service, isTop, opacity }: { service: any, isTop: boolean
             src={service.img}
             alt={service.title}
             className="rounded-md object-cover"
-            style={{ width: "82px", height: "68px", margin: 0, padding: 0 }}
+            style={{ 
+              width: isMobile ? "55px" : "82px", 
+              height: isMobile ? "45px" : "68px", 
+              margin: 0, 
+              padding: 0 
+            }}
           />
         </div>
         <div
@@ -214,12 +274,12 @@ function ServiceCard({ service, isTop, opacity }: { service: any, isTop: boolean
       </div>
 
       {/* Card body */}
-      <div className="flex flex-col" style={{ gap: "12px", margin: 0, padding: 0 }}>
+      <div className="flex flex-col" style={{ gap: isMobile ? "6px" : "12px", margin: 0, padding: 0 }}>
         <h3
           className="text-[#111]"
           style={{
             fontFamily: "'Montreal Serial', 'Playfair Display', Georgia, serif",
-            fontSize: "clamp(20px, 2.5vw, 27px)",
+            fontSize: isMobile ? "18px" : "clamp(20px, 2.5vw, 27px)",
             fontWeight: 400,
             lineHeight: 1.2,
             margin: 0,
@@ -230,14 +290,14 @@ function ServiceCard({ service, isTop, opacity }: { service: any, isTop: boolean
         </h3>
 
         {isTop && (
-          <ul className="flex flex-col list-disc" style={{ gap: "4px", margin: 0, padding: 0, paddingLeft: "24px" }}>
+          <ul className="flex flex-col list-disc" style={{ gap: isMobile ? "2px" : "4px", margin: 0, padding: 0, paddingLeft: "20px" }}>
             {service.bullets.map((bullet: string, i: number) => (
               <li
                 key={i}
                 className="text-[#333] leading-relaxed"
                 style={{
                   fontFamily: "'DM Sans', sans-serif",
-                  fontSize: "14px",
+                  fontSize: isMobile ? "12px" : "14px",
                   fontWeight: 300,
                   margin: 0,
                   padding: 0,
@@ -252,12 +312,12 @@ function ServiceCard({ service, isTop, opacity }: { service: any, isTop: boolean
 
       {/* CTA — only on top card */}
       {isTop && (
-        <div style={{ margin: 0, marginTop: "16px", padding: 0 }}>
+        <div style={{ margin: 0, marginTop: isMobile ? "10px" : "16px", padding: 0 }}>
           <button
             className="relative flex items-center justify-center cursor-pointer border-none overflow-hidden"
             style={{
-              width: "224.802px",
-              height: "41.864px",
+              width: isMobile ? "180px" : "224.802px",
+              height: isMobile ? "36px" : "41.864px",
               borderRadius: "13.083px",
               background: "#F79135",
               margin: 0,
@@ -272,14 +332,14 @@ function ServiceCard({ service, isTop, opacity }: { service: any, isTop: boolean
             <div
               className="absolute left-[4px] bg-white flex items-center justify-center"
               style={{
-                width: "44px",
-                height: "34px",
+                width: isMobile ? "36px" : "44px",
+                height: isMobile ? "28px" : "34px",
                 borderRadius: "10px",
                 margin: 0,
                 padding: 0,
               }}
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F79135" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ margin: 0, padding: 0 }}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F79135" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ margin: 0, padding: 0 }}>
                 <path d="M5 12h14M12 5l7 7-7 7"/>
               </svg>
             </div>
@@ -289,13 +349,13 @@ function ServiceCard({ service, isTop, opacity }: { service: any, isTop: boolean
               style={{
                 color: "#FFF",
                 fontFamily: "'Montreal Serial', sans-serif",
-                fontSize: "15.699px",
+                fontSize: isMobile ? "13px" : "15.699px",
                 fontStyle: "normal",
                 fontWeight: 400,
                 lineHeight: "normal",
-                marginLeft: "30px", // Offset for the absolute pill
+                marginLeft: isMobile ? "24px" : "30px", // Offset for the absolute pill
                 padding: 0,
-                margin: "0 0 0 30px", // Strict enforce
+                margin: isMobile ? "0 0 0 24px" : "0 0 0 30px", // Strict enforce
               }}
             >
               {service.buttonText}

@@ -93,8 +93,8 @@ const ContactForm = () => {
                   </svg>
                 </div>
                 <div className="text-white text-[15px] sm:text-[16px] font-normal font-montreal leading-normal">
-                  <div className="text-[12px] text-white/70 font-light mb-0.5">Phone</div>
-                  <a href="tel:04954900077" className="hover:underline">0495 490 0077</a>
+                  <div className="text-[12px] text-white/70 font-light mb-0.5">No</div>
+                  <a href="tel:+918714650111" className="hover:underline">+918714650111</a>
                 </div>
               </div>
 
@@ -106,8 +106,8 @@ const ContactForm = () => {
                   </svg>
                 </div>
                 <div className="text-white text-[15px] sm:text-[16px] font-normal font-montreal leading-normal">
-                  <div className="text-[12px] text-white/70 font-light mb-0.5">Email</div>
-                  <a href="mailto:hello@wisbato.com" className="hover:underline">hello@wisbato.com</a>
+                  <div className="text-[12px] text-white/70 font-light mb-0.5">Mail</div>
+                  <a href="mailto:sales@wisbato.com" className="hover:underline">sales@wisbato.com</a>
                 </div>
               </div>
 
