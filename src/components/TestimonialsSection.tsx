@@ -1,41 +1,52 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import FadeInScroll from './FadeInScroll';
 
 const TESTIMONIALS = [
   {
     id: 1,
-    text: "Working with Wisbato was a game-changer for our business. Their AI-driven approach and strategic marketing significantly improved our online visibility. The team delivered a modern, high-performing website and maintained excellent communication throughout.",
-    author: "Sanju samson",
-    role: "ABC Company ltd",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?fit=crop&w=150&h=150",
+    text: "Choosing Wisbato was one of the best decisions we made for our business. Their expertise in branding and web development is unmatched. They didn't just design a logo or create a website; they crafted an entire brand identity that perfectly aligns with our values and speaks to our target audience. The website they built is not only visually stunning but also highly functional, providing our customers with an intuitive and seamless experience. Their team's dedication, attention to detail, and creativity have truly set us apart in our industry. We couldn't be happier with the results and highly recommend Wisbato to anyone looking to elevate their brand and online presence.",
+    author: "Andrew",
+    role: "CEO, Thunder AI",
+    avatar: "/andrew.webp",
   },
   {
     id: 2,
-    text: "Wisbato's development expertise completely transformed our operations. They rebuilt our e-commerce platform with a user-centric design that boosted conversion rates by 40% in just two months.",
-    author: "Sarah Jenkins",
-    role: "Global Commerce Corp",
-    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?fit=crop&w=150&h=150",
-  },
-  {
-    id: 3,
-    text: "Their strategic vision and execution were flawless. Wisbato built a custom mobile app for our field sales team that works perfectly offline, delivered on time and within budget.",
-    author: "David Chen",
-    role: "Nexus Logistics",
-    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?fit=crop&w=150&h=150",
+    text: "Working with Wisbato has been a game-changer for our online business. Their expertise in building ecommerce websites is exceptional. They created a user-friendly, visually appealing platform that has significantly enhanced our online presence and customer experience. From seamless navigation to secure payment processing, every aspect of our website reflects their attention to detail and commitment to excellence. Thanks to Wisbato, we've seen a noticeable increase in sales and customer satisfaction.",
+    author: "Rebella",
+    role: "Founder & CTO",
+    avatar: "/rebella.webp",
   }
 ];
 
 export default function TestimonialsSection() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const [expandedCardId, setExpandedCardId] = useState<number | null>(null);
+  const [contentHeight, setContentHeight] = useState<number>(0);
+  const contentRef = useRef<HTMLDivElement>(null);
 
-  // Auto cycle testimonials every 5 seconds
+  useLayoutEffect(() => {
+    const measureHeight = () => {
+      if (contentRef.current) {
+        setContentHeight(contentRef.current.scrollHeight);
+      }
+    };
+
+    if (expandedCardId !== null) {
+      measureHeight();
+      window.addEventListener('resize', measureHeight);
+      return () => window.removeEventListener('resize', measureHeight);
+    }
+  }, [expandedCardId, activeIndex]);
+
+  // Auto cycle testimonials every 5 seconds, paused when a card is expanded
   useEffect(() => {
+    if (expandedCardId !== null) return;
     const timer = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % TESTIMONIALS.length);
     }, 5000);
     return () => clearInterval(timer);
-  }, []);
+  }, [expandedCardId]);
 
   // Responsive mobile screen check
   useEffect(() => {
@@ -49,6 +60,7 @@ export default function TestimonialsSection() {
 
   const handleCardClick = () => {
     setActiveIndex((prev) => (prev + 1) % TESTIMONIALS.length);
+    setExpandedCardId(null); // Collapse when cycling
   };
 
   // Build the render stack:
@@ -86,7 +98,12 @@ export default function TestimonialsSection() {
       {/* Stack Container */}
       <FadeInScroll direction="up" delay={0.15} className="w-full flex justify-center">
         <div 
-          className="relative w-full max-w-[620px] h-[290px] sm:h-[460px] flex items-center justify-center cursor-pointer"
+          className="relative w-full max-w-[620px] transition-all duration-300 flex items-center justify-center cursor-pointer"
+          style={{
+            height: expandedCardId !== null && contentHeight > 0
+              ? `${contentHeight + 50}px`
+              : (isMobile ? '310px' : '420px'),
+          }}
           onClick={handleCardClick}
         >
         
@@ -119,16 +136,22 @@ export default function TestimonialsSection() {
             scale = 1;
           }
 
-          return (
-            <div
-              key={item.id}
-              className="absolute w-full h-[240px] sm:h-[410px] transition-all duration-500 ease-out"
-              style={{
-                transform: `translateY(${translateY}px) translateX(${translateX}px) rotate(${rotate}deg) scale(${scale})`,
-                zIndex: depth,
-                opacity: isTop ? 1 : 0.9,
-              }}
-            >
+            const isExpanded = expandedCardId === item.id;
+            const cardHeight = isExpanded
+              ? (contentHeight > 0 ? `${contentHeight}px` : (isMobile ? '330px' : '490px'))
+              : (isMobile ? '260px' : '370px');
+
+            return (
+              <div
+                key={item.id}
+                className="absolute w-full transition-all duration-500 ease-out"
+                style={{
+                  transform: `translateY(${translateY}px) translateX(${translateX}px) rotate(${rotate}deg) scale(${scale})`,
+                  zIndex: depth,
+                  opacity: isTop ? 1 : 0.9,
+                  height: cardHeight,
+                }}
+              >
               {/* Card Background Layer */}
               <div className="absolute inset-0 rounded-[24px] bg-[#F79135] shadow-[0_15px_30px_rgba(0,0,0,0.12)] border border-[#e07f2b] z-10" />
 
@@ -171,7 +194,10 @@ export default function TestimonialsSection() {
               )}
 
               {/* Interactive Content Wrapper */}
-              <div className="absolute inset-0 p-4 sm:p-10 z-20 flex flex-col justify-between">
+              <div 
+                ref={isTop ? contentRef : null}
+                className="absolute inset-0 p-4 sm:p-10 z-20 flex flex-col justify-between"
+              >
                 {/* Card Top: Logo & Dots */}
                 <div className="flex justify-between items-center">
                   {/* LogoIpsum logo from public folder */}
@@ -181,11 +207,16 @@ export default function TestimonialsSection() {
                     className="h-[18px] sm:h-[30px] w-auto object-contain"
                   />
 
-                  {/* 3 horizontal dots (selected card is black, others are grey) */}
+                  {/* Horizontal dots (selected card is black, others are grey) */}
                   <div className="flex gap-1">
-                    <div className={`w-[7px] h-[7px] rounded-full transition-colors duration-300 ${item.id === 1 ? 'bg-black' : 'bg-black/25'}`}></div>
-                    <div className={`w-[7px] h-[7px] rounded-full transition-colors duration-300 ${item.id === 2 ? 'bg-black' : 'bg-black/25'}`}></div>
-                    <div className={`w-[7px] h-[7px] rounded-full transition-colors duration-300 ${item.id === 3 ? 'bg-black' : 'bg-black/25'}`}></div>
+                    {TESTIMONIALS.map((t) => (
+                      <div
+                        key={t.id}
+                        className={`w-[7px] h-[7px] rounded-full transition-colors duration-300 ${
+                          item.id === t.id ? 'bg-black' : 'bg-black/25'
+                        }`}
+                      />
+                    ))}
                   </div>
                 </div>
 
@@ -197,14 +228,36 @@ export default function TestimonialsSection() {
                   </svg>
 
                   <p 
-                    className="text-[#FFFDF9] font-normal leading-relaxed tracking-wide"
+                    onClick={(e) => {
+                      if (isTop) {
+                        e.stopPropagation();
+                        setExpandedCardId(expandedCardId === item.id ? null : item.id);
+                      }
+                    }}
+                    className={`text-[#FFFDF9] font-normal leading-relaxed tracking-wide ${isTop ? 'cursor-pointer' : ''}`}
                     style={{
                       fontFamily: "'Montreal Serial', sans-serif",
                       fontSize: 'clamp(10.5px, 2.7vw, 17px)',
+                      display: expandedCardId === item.id ? 'block' : '-webkit-box',
+                      WebkitLineClamp: expandedCardId === item.id ? 'none' : 3,
+                      WebkitBoxOrient: 'vertical',
+                      overflow: expandedCardId === item.id ? 'visible' : 'hidden',
                     }}
                   >
                     {item.text}
                   </p>
+
+                  {isTop && (
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setExpandedCardId(expandedCardId === item.id ? null : item.id);
+                      }}
+                      className="text-white/85 hover:text-white text-[11px] sm:text-xs font-semibold mt-2 sm:mt-3 underline decoration-white/30 hover:decoration-white transition-all cursor-pointer self-start focus:outline-none"
+                    >
+                      {expandedCardId === item.id ? "Read Less" : "Read More..."}
+                    </button>
+                  )}
                 </div>
 
                 {/* Card Footer: Profile Info & LinkedIn */}
