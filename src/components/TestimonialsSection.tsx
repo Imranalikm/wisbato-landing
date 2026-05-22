@@ -198,15 +198,8 @@ export default function TestimonialsSection() {
                 ref={isTop ? contentRef : null}
                 className="absolute inset-0 p-4 sm:p-10 z-20 flex flex-col justify-between"
               >
-                {/* Card Top: Logo & Dots */}
-                <div className="flex justify-between items-center">
-                  {/* LogoIpsum logo from public folder */}
-                  <img 
-                    src="/logoipsum.svg" 
-                    alt="LogoIpsum" 
-                    className="h-[18px] sm:h-[30px] w-auto object-contain"
-                  />
-
+                {/* Card Top: Dots */}
+                <div className="flex justify-end items-center">
                   {/* Horizontal dots (selected card is black, others are grey) */}
                   <div className="flex gap-1">
                     {TESTIMONIALS.map((t) => (
