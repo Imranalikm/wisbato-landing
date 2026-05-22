@@ -36,22 +36,21 @@ export default function TechnicalSupportSection() {
           {/* Button */}
           <button 
             onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-            className="relative w-[186.3px] h-[48px] bg-white rounded-[15px] flex items-center shadow-sm hover:scale-105 transition-transform"
+            className="relative flex items-center bg-white h-[48px] w-fit pl-[5px] pr-5 sm:pr-6 rounded-[15px] border-none cursor-pointer transition-transform hover:scale-105 active:scale-[0.97] shadow-sm gap-4"
           >
-            <div className="absolute left-[5px] top-[5px] w-[60.92px] h-[38px] bg-[#F79135] rounded-[15px] flex items-center justify-center">
+            <div className="w-[60.92px] h-[38px] bg-[#F79135] rounded-[15px] flex items-center justify-center shrink-0">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
             </div>
             <span 
-              className="absolute left-[80px] text-[#333333]"
+              className="text-[#333333] font-montreal font-medium text-[15px] sm:text-[16px] whitespace-nowrap"
               style={{
                 fontFamily: "'Montreal Serial', sans-serif",
-                fontSize: "16px",
                 fontWeight: 500,
               }}
             >
-              Explore more
+              Get free Consultation
             </span>
           </button>
         </FadeInScroll>

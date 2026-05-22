@@ -23,9 +23,9 @@ const ContactForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.first_name || !formData.email || !formData.message) {
+    if (!formData.first_name || !formData.company_name || !formData.email || !formData.business_type) {
       setStatus("error");
-      setErrorMsg("Please fill in all required fields (First Name, Email, Message).");
+      setErrorMsg("Please fill in all required fields (First Name, Company Name, Email, Business Type).");
       return;
     }
 
@@ -37,11 +37,11 @@ const ContactForm = () => {
         "https://backend.wisbato.com/api/save-contacts",
         {
           first_name: formData.first_name,
-          company_name: formData.company_name || null,
+          company_name: formData.company_name,
           email: formData.email,
           service_interested: formData.service_interested,
-          business_type: formData.business_type || null,
-          message: formData.message,
+          business_type: formData.business_type,
+          message: formData.message || null,
         },
         {
           headers: {
@@ -210,6 +210,7 @@ const ContactForm = () => {
                     name="company_name"
                     value={formData.company_name}
                     onChange={handleChange}
+                    required
                     placeholder="Enter company name"
                     className="border border-[#8D8D8D]/50 focus:border-[#F79135] transition-colors rounded-lg px-[14px] py-[10px] text-[#222222] placeholder-[#8D8D8D]/60 text-[14px] font-medium bg-white outline-none w-full font-montreal"
                   />
@@ -260,6 +261,7 @@ const ContactForm = () => {
                     name="business_type"
                     value={formData.business_type}
                     onChange={handleChange}
+                    required
                     placeholder="Enter business type"
                     className="border border-[#8D8D8D]/50 focus:border-[#F79135] transition-colors rounded-lg px-[14px] py-[10px] text-[#222222] placeholder-[#8D8D8D]/60 text-[14px] font-medium bg-white outline-none w-full font-montreal"
                   />
@@ -274,7 +276,6 @@ const ContactForm = () => {
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
-                    required
                     placeholder="Write your message.."
                     className="border border-[#8D8D8D]/50 focus:border-[#F79135] transition-colors rounded-lg px-[14px] py-[10px] text-[#222222] placeholder-[#8D8D8D]/60 text-[14px] font-medium bg-white outline-none w-full resize-y min-h-[100px] font-montreal"
                   />

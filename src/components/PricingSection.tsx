@@ -76,7 +76,7 @@ export default function PricingSection() {
   const tier = TIERS[currentTier];
 
   return (
-    <section className="relative w-full bg-[#EAE6DD] px-4 md:px-8 lg:px-[50px] py-20 pb-28 flex justify-center overflow-hidden">
+    <section id="pricing" className="relative w-full bg-[#EAE6DD] px-4 md:px-8 lg:px-[50px] py-20 pb-28 flex justify-center overflow-hidden">
       <div className="max-w-[1300px] w-full flex flex-col xl:flex-row items-center xl:items-center justify-between gap-8 xl:gap-[30px]">
         
         {/* ── LEFT: Text Content ── */}

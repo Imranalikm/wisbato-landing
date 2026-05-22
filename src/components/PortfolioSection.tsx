@@ -68,7 +68,7 @@ export default function PortfolioSection() {
   const currentProject = PORTFOLIO_DATA[currentIndex];
 
   return (
-    <section className="relative w-full bg-[#EAE6DD] py-20 lg:py-28 overflow-hidden font-montreal">
+    <section id="portfolio" className="relative w-full bg-[#EAE6DD] py-20 lg:py-28 overflow-hidden font-montreal">
       <div className="max-w-[1440px] mx-auto px-5 lg:px-[50px]">
         {/* Header Row */}
         <FadeInScroll direction="up">
@@ -105,7 +105,7 @@ export default function PortfolioSection() {
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
             </div>
-            <span className="pr-2 font-montreal font-medium">Explore more</span>
+            <span className="pr-2 font-montreal font-medium">Get free Consultation</span>
           </button>
         </div>
         </FadeInScroll>

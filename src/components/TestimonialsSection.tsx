@@ -66,7 +66,7 @@ export default function TestimonialsSection() {
   renderCards.reverse();
 
   return (
-    <section className="w-full bg-[#EAE6DD] py-16 sm:py-20 px-4 md:px-8 lg:px-[50px] flex flex-col items-center justify-center overflow-hidden select-none">
+    <section id="testimonials" className="w-full bg-[#EAE6DD] py-16 sm:py-20 px-4 md:px-8 lg:px-[50px] flex flex-col items-center justify-center overflow-hidden select-none">
       
       {/* Title */}
       <FadeInScroll direction="up">

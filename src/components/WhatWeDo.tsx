@@ -13,7 +13,7 @@ const SERVICES = [
       "SEO-ready development",
     ],
     buttonText: "Get Website Quote",
-    img: "/stack_card_image.png",
+    img: "/web-whatwedo.png",
   },
   {
     id: "02",
@@ -25,7 +25,7 @@ const SERVICES = [
       "User-friendly UI/UX",
     ],
     buttonText: "Discuss App Idea",
-    img: "/stack_card_image.png",
+    img: "/mobile-whatwedo.png",
   },
   {
     id: "03",
@@ -38,7 +38,7 @@ const SERVICES = [
       "Social media growth",
     ],
     buttonText: "Grow my business",
-    img: "/stack_card_image.png",
+    img: "/dm-whatwedo.png",
   },
   {
     id: "04",
@@ -48,8 +48,8 @@ const SERVICES = [
       "Brand Identity",
       "Social Media Creatives Brand Assets",
     ],
-    buttonText: "Get Website Qoute",
-    img: "/stack_card_image.png",
+    buttonText: "Build My Brand",
+    img: "/branding-whatewedo.png",
   },
 ];
 
@@ -57,14 +57,16 @@ const SERVICES = [
 export default function WhatWeDo() {
   const [activeIndex, setActiveIndex] = useState(SERVICES.length - 1);
   const [isMobile, setIsMobile] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
-  // Automatically cycle through cards every 4 seconds
+  // Automatically cycle through cards every 1.5 seconds, pausing on hover
   useEffect(() => {
+    if (isHovered) return;
     const interval = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % SERVICES.length);
-    }, 4000);
+    }, 1500);
     return () => clearInterval(interval);
-  }, []);
+  }, [isHovered]);
 
   // Responsive mobile screen check
   useEffect(() => {
@@ -94,17 +96,19 @@ export default function WhatWeDo() {
 
   return (
     <section
+      id="what-we-do"
       className="relative w-full overflow-x-hidden lg:overflow-hidden flex flex-col pt-12 pb-0 lg:py-0 lg:h-screen"
       style={{
         background: "linear-gradient(180deg, #EB8A32 0%, #EAF7F9 100%)",
       }}
     >
       {/* ── Heading ── */}
-      <div className="w-full text-center pt-4 px-5 z-20 pointer-events-none lg:hidden">
+      <div className="w-full text-center pt-6 lg:pt-12 px-5 z-20 pointer-events-none lg:absolute lg:top-0 lg:left-0 lg:right-0">
         <FadeInScroll direction="down">
           <h2 
-            className="text-black text-center"
+            className="text-center"
             style={{
+              color: "#e8dfd1",
               fontFamily: "'Montreal Serial', sans-serif",
               fontSize: "clamp(32px, 5vw, 56px)",
               fontWeight: 400,
@@ -140,6 +144,8 @@ export default function WhatWeDo() {
           <div
             className="relative w-full max-w-[668px] cursor-pointer h-[320px] sm:h-[400px] lg:h-[420px] transition-transform duration-300"
             onClick={() => handleCardClick(activeIndex)}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
           >
             {stack.map(({ service, depth }) => {
               const isTop = depth === SERVICES.length - 1;

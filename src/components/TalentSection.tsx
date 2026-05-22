@@ -207,7 +207,7 @@ export default function TalentSection() {
   }, [isHovered, isIntersecting]);
 
   return (
-    <section ref={sectionRef} className="w-full bg-[#EFEAE2] py-24 px-4 md:px-8 lg:px-[50px]">
+    <section id="technologies" ref={sectionRef} className="w-full bg-[#EFEAE2] py-24 px-4 md:px-8 lg:px-[50px]">
       <div className="max-w-[1340px] mx-auto bg-[#F79135] rounded-[30px] px-10 py-12 lg:py-0 flex flex-col lg:flex-row gap-0 lg:gap-16 relative overflow-hidden lg:h-[700px]">
         
         {/* Left Content */}
@@ -224,11 +224,11 @@ export default function TalentSection() {
             </p>
 
             <button 
-              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+              onClick={() => document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' })}
               className="flex items-center gap-3 mt-2 group self-start hover:opacity-85 transition-opacity z-20 relative"
             >
               <span className="text-[20px] sm:text-[22px] text-[#222222]">
-                View our team
+                View our works
               </span>
 
               <div className="w-10 h-10 rounded-full border border-[#222222] flex items-center justify-center group-hover:translate-x-1 transition duration-300">

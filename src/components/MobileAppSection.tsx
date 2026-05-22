@@ -112,25 +112,23 @@ export default function MobileAppSection() {
             {/* Explore more CTA */}
             <button
               onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-              className="group relative flex items-center overflow-hidden rounded-[15px] bg-white h-[48px] w-[186px] border-none cursor-pointer transition-transform duration-150 active:scale-[0.97]"
+              className="group relative flex items-center overflow-hidden rounded-[15px] bg-white h-[48px] w-fit pl-[5px] pr-5 sm:pr-6 border-none cursor-pointer transition-transform duration-150 active:scale-[0.97] gap-3"
             >
-              <span className="flex-shrink-0 m-[5px] w-[38px] h-[38px] bg-[#F79135] rounded-[12px] flex items-center justify-center transition-transform duration-200 group-hover:rotate-3">
+              <span className="flex-shrink-0 w-[38px] h-[38px] bg-[#F79135] rounded-[12px] flex items-center justify-center transition-transform duration-200 group-hover:rotate-3">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
               </span>
               <span
-                className="pr-3"
+                className="text-[#333] font-montreal font-medium text-[16px] sm:text-[18px] whitespace-nowrap"
                 style={{
-                  color: "#333",
                   fontFamily: "'Montreal Serial', sans-serif",
-                  fontSize: "18px",
                   fontStyle: "normal",
                   fontWeight: 500,
                   lineHeight: "normal",
                 }}
               >
-                Explore more
+                Get free Consultation
               </span>
             <span className="pointer-events-none absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
             </button>
@@ -328,25 +326,23 @@ export default function MobileAppSection() {
             {/* Explore more CTA — mobile */}
             <button
               onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-              className="group relative flex items-center overflow-hidden rounded-[15px] bg-white h-[44px] w-[170px] border-none cursor-pointer transition-transform duration-150 active:scale-[0.97] mt-2"
+              className="group relative flex items-center overflow-hidden rounded-[15px] bg-white h-[44px] w-fit pl-[4px] pr-4 sm:pr-5 border-none cursor-pointer transition-transform duration-150 active:scale-[0.97] mt-2 gap-2"
             >
-              <span className="flex-shrink-0 m-[4px] w-[36px] h-[36px] bg-[#F79135] rounded-[11px] flex items-center justify-center transition-transform duration-200 group-hover:rotate-3">
+              <span className="flex-shrink-0 w-[36px] h-[36px] bg-[#F79135] rounded-[11px] flex items-center justify-center transition-transform duration-200 group-hover:rotate-3">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
               </span>
               <span
-                className="pr-3"
+                className="text-[#333] font-montreal font-medium text-[15px] sm:text-[16px] whitespace-nowrap"
                 style={{
-                  color: "#333",
                   fontFamily: "'Montreal Serial', sans-serif",
-                  fontSize: "18px",
                   fontStyle: "normal",
                   fontWeight: 400,
                   lineHeight: "normal",
                 }}
               >
-                Explore more
+                Get free Consultation
               </span>
             </button>
           </FadeInScroll>
