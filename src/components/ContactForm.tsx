@@ -182,6 +182,9 @@ const ContactForm = () => {
             </div>
           ) : (
             <form onSubmit={handleSubmit}>
+              <p className="text-[#555555] text-[14px] sm:text-[15px] font-normal font-montreal leading-relaxed mb-6">
+                Fill the form and our team will contact you within 24 hours to understand your requirement and provide suitable pricing.
+              </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-8 lg:gap-x-10">
                 
                 {/* First Name */}

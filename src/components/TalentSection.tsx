@@ -51,6 +51,7 @@ const getToolBg = (tool: string) => {
     case "ae": return "bg-[#00005B]";
     case "linux": return "bg-[#FCC624]";
     case "windows": return "bg-[#0078D4]";
+    case "flutter": return "bg-white shadow-sm";
     default: return "bg-white";
   }
 };
@@ -70,6 +71,7 @@ const renderToolIcon = (tool: string) => {
     case "ae": return <AEIcon />;
     case "linux": return <LinuxIcon />;
     case "windows": return <WindowsIcon />;
+    case "flutter": return <img src="/flutter-logo-png_seeklogo-349577.png" alt="" className="w-full h-full object-contain p-2" />;
     default: return null;
   }
 };
@@ -85,19 +87,19 @@ const CARDS = [
   },
   {
     id: 2,
-    title: "Website Development",
-    subtitle: "Modern Technologies",
+    title: "Web Development",
+    subtitle: "Full Stack Solutions",
     avatar: "/web-development.png",
-    description: "Building responsive websites using React, HTML, CSS, and modern web technologies for fast and scalable performance.",
-    tools: ["react", "node"]
+    description: "Building responsive frontend interfaces and secure backend systems using React, Node.js, databases, and APIs for fast, scalable performance.",
+    tools: ["react", "node", "js", "php"]
   },
   {
     id: 3,
-    title: "Backend Development",
-    subtitle: "Server Technologies",
-    avatar: "/backend-development.png",
-    description: "Building secure backend systems using Node.js, APIs, and databases for scalable digital application performance.",
-    tools: ["js", "php", "csharp"]
+    title: "Mobile App Development",
+    subtitle: "Cross-Platform Apps",
+    avatar: "/mobile-whatwedo.png",
+    description: "Developing high-performance iOS and Android applications with interactive user interfaces.",
+    tools: ["flutter"]
   },
   {
     id: 4,
@@ -208,7 +210,7 @@ export default function TalentSection() {
 
   return (
     <section id="technologies" ref={sectionRef} className="w-full bg-[#EFEAE2] py-24 px-4 md:px-8 lg:px-[50px]">
-      <div className="max-w-[1340px] mx-auto bg-[#F79135] rounded-[30px] px-10 py-12 lg:py-0 flex flex-col lg:flex-row gap-0 lg:gap-16 relative overflow-hidden lg:h-[700px]">
+      <div className="max-w-[1340px] mx-auto bg-[#F79135] rounded-[30px] px-4 sm:px-8 md:px-10 py-12 lg:py-0 flex flex-col lg:flex-row gap-0 lg:gap-16 relative overflow-hidden lg:h-[700px]">
         
         {/* Left Content */}
         <FadeInScroll direction="left" className="max-w-[553px] w-full flex flex-col lg:h-full lg:pt-20 lg:pb-16 z-10 relative">
@@ -251,7 +253,7 @@ export default function TalentSection() {
             ref={scrollContainerRef}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            className="grid grid-cols-1 md:grid-cols-2 gap-6 h-full overflow-y-auto no-scrollbar lg:py-8"
+            className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 h-full overflow-y-auto no-scrollbar lg:py-8"
           >
             {cardsToRender.map((card, index) => (
               <div 
