@@ -131,7 +131,7 @@ export default function WhatWeDo() {
           <img
             src="/what_we_do.png"
             alt="What we do illustration"
-            className="w-full h-auto object-contain animate-glow-whatwedo"
+            className="w-full h-auto object-contain animate-glow-second"
           />
         </FadeInScroll>
 
@@ -199,7 +199,7 @@ export default function WhatWeDo() {
           <img
             src="/what_we_do.png"
             alt="What we do illustration"
-            className="w-full h-auto object-contain block animate-glow-whatwedo"
+            className="w-full h-auto object-contain block animate-glow-second"
             style={{ display: 'block', margin: 0, padding: 0 }}
           />
         </FadeInScroll>
