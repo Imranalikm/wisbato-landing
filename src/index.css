@@ -218,3 +218,19 @@ body {
 .animate-glow-whatwedo {
   animation: glow-pulse-whatwedo 3.2s ease-in-out infinite;
 }
+
+/* ── Marquee for Pain Points ── */
+@keyframes marquee-pain {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee-pain {
+  display: flex;
+  width: max-content;
+  animation: marquee-pain 30s linear infinite;
+}
