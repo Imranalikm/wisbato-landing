@@ -97,7 +97,7 @@ const ContactForm = () => {
         <div className="w-full bg-white shadow-[0_15px_50px_-15px_rgba(0,0,0,0.06)] rounded-[12px] flex flex-col xl:flex-row overflow-hidden border border-[#ECECEC]">
         
         {/* Left Info Panel */}
-        <div className="w-full xl:w-[491px] bg-[#F79135] p-8 sm:p-10 shrink-0 relative overflow-hidden flex flex-col justify-between gap-12 min-h-[500px] xl:min-h-[639px] m-1.5 sm:m-2 xl:m-2 rounded-[10px] xl:w-[calc(491px-16px)]">
+        <div className="w-full xl:w-[491px] bg-[#F79135] p-8 sm:p-10 shrink-0 relative overflow-hidden flex flex-col justify-between gap-12 min-h-[500px] xl:min-h-[639px] m-0 sm:m-2 rounded-none sm:rounded-[10px] xl:w-[calc(491px-16px)]">
           <div>
             <h3 className="max-w-[370px] text-white text-[24px] sm:text-[28px] font-medium mb-4 sm:mb-6 font-montreal leading-snug">
               Ready To Grow Your Business Online?
