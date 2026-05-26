@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import FadeInScroll from "./FadeInScroll";
 
 const TIERS = [
@@ -58,6 +58,7 @@ export default function PricingSection() {
   const [currentTier, setCurrentTier] = useState(0);
   const [animDir, setAnimDir] = useState<"left" | "right" | null>(null);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   const navigate = (direction: "left" | "right") => {
     if (isAnimating) return;
@@ -72,6 +73,15 @@ export default function PricingSection() {
       setTimeout(() => setIsAnimating(false), 20);
     }, 220);
   };
+
+  // Auto-advance slides every 3 seconds (pausing on hover)
+  useEffect(() => {
+    if (isHovered) return;
+    const timer = setInterval(() => {
+      navigate("right");
+    }, 3000);
+    return () => clearInterval(timer);
+  }, [isHovered, isAnimating]);
 
   const tier = TIERS[currentTier];
 
@@ -122,7 +132,11 @@ export default function PricingSection() {
         </FadeInScroll>
 
         {/* ── RIGHT: Carousel Area ── */}
-        <div className="flex flex-col xl:flex-row items-center justify-center flex-1 gap-6 xl:gap-8">
+        <div 
+          className="flex flex-col xl:flex-row items-center justify-center flex-1 gap-6 xl:gap-8"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
           
           {/* Desktop Left Arrow */}
           <button

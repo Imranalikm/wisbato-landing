@@ -121,7 +121,7 @@ const CARDS = [
     id: 6,
     title: "Technical Support",
     subtitle: "Reliable Assistance",
-    avatar: "/technical-support.png",
+    avatar: "/new_ts.jpg",
     description: "Providing 24/7 technical support, system maintenance, troubleshooting, and server management.",
     tools: ["linux", "windows"]
   }

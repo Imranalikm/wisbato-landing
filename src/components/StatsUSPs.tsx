@@ -22,11 +22,11 @@ const ArrowIcon = () => (
 
 const StatsUSPs = () => {
   return (
-    <div className="w-full flex flex-col items-center pt-0 pb-0 px-4 sm:px-6 md:px-12 lg:px-12 xl:px-20 overflow-hidden">
+    <div className="w-full flex flex-col items-center pt-0 pb-0 px-4 sm:px-6 md:px-12 lg:px-12 xl:px-20">
       <div className="max-w-[1196px] w-full flex flex-col lg:flex-row items-center lg:items-stretch justify-between gap-12 lg:gap-8 xl:gap-12">
         
         {/* Left Column: USP Card and Button */}
-        <div className="flex flex-col items-center lg:items-start gap-6 w-full lg:w-[438px] lg:ml-6 xl:ml-20 2xl:ml-[140px] shrink-0 my-6 md:my-10">
+        <div className="flex flex-col items-center lg:items-start gap-6 w-full lg:w-[438px] lg:ml-6 xl:ml-20 2xl:ml-[140px] shrink-0 mt-6 mb-12 lg:mt-10 lg:mb-[90px]">
           {/* USP List Card */}
           <FadeInScroll direction="up" className="w-full">
             <div 
@@ -84,10 +84,9 @@ const StatsUSPs = () => {
           <img
             src="/section2_contact image.png"
             alt="VR Character Illustration"
-            className="w-full max-w-[320px] sm:max-w-[400px] lg:max-w-full h-auto object-contain block"
+            className="w-full max-w-[320px] sm:max-w-[400px] lg:max-w-full h-auto object-contain object-bottom block relative z-10 animate-glow-second"
             style={{
               transform: "scaleX(-1)",
-              filter: "drop-shadow(0px 15px 30px rgba(0,0,0,0.08))",
             }}
           />
         </FadeInScroll>

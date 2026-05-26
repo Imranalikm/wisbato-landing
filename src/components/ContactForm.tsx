@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
+import { motion, AnimatePresence } from "framer-motion";
 import FadeInScroll from "./FadeInScroll";
 
 const ContactForm = () => {
@@ -13,6 +14,28 @@ const ContactForm = () => {
   });
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const serviceOptions = [
+    "Website",
+    "Mobile App",
+    "Digital Marketing",
+    "Branding",
+    "Technical Support",
+    "Video editing",
+    "Others"
+  ];
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -23,9 +46,9 @@ const ContactForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.first_name || !formData.company_name || !formData.email || !formData.business_type) {
+    if (!formData.first_name || !formData.email || !formData.message) {
       setStatus("error");
-      setErrorMsg("Please fill in all required fields (First Name, Company Name, Email, Business Type).");
+      setErrorMsg("Please fill in all required fields (First Name, Email, Message).");
       return;
     }
 
@@ -37,11 +60,11 @@ const ContactForm = () => {
         "https://backend.wisbato.com/api/save-contacts",
         {
           first_name: formData.first_name,
-          company_name: formData.company_name,
+          company_name: formData.company_name || null,
           email: formData.email,
           service_interested: formData.service_interested,
-          business_type: formData.business_type,
-          message: formData.message || null,
+          business_type: formData.business_type || null,
+          message: formData.message,
         },
         {
           headers: {
@@ -56,7 +79,7 @@ const ContactForm = () => {
         first_name: "",
         company_name: "",
         email: "",
-        service_interested: "Website",
+        service_interested: "Website" ,
         business_type: "",
         message: "",
       });
@@ -74,7 +97,7 @@ const ContactForm = () => {
         <div className="w-full bg-white shadow-[0_15px_50px_-15px_rgba(0,0,0,0.06)] rounded-[12px] flex flex-col xl:flex-row overflow-hidden border border-[#ECECEC]">
         
         {/* Left Info Panel */}
-        <div className="w-full xl:w-[491px] bg-[#F79135] p-8 sm:p-10 shrink-0 relative overflow-hidden flex flex-col justify-between gap-12 min-h-[500px] xl:min-h-[647px]">
+        <div className="w-full xl:w-[491px] bg-[#F79135] p-8 sm:p-10 shrink-0 relative overflow-hidden flex flex-col justify-between gap-12 min-h-[500px] xl:min-h-[639px] m-1.5 sm:m-2 xl:m-2 rounded-[10px] xl:w-[calc(491px-16px)]">
           <div>
             <h3 className="max-w-[370px] text-white text-[24px] sm:text-[28px] font-medium mb-4 sm:mb-6 font-montreal leading-snug">
               Ready To Grow Your Business Online?
@@ -92,8 +115,7 @@ const ContactForm = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
                 </div>
-                <div className="text-white text-[15px] sm:text-[16px] font-normal font-montreal leading-normal">
-                  <div className="text-[12px] text-white/70 font-light mb-0.5">No</div>
+                <div className="text-white text-[15px] sm:text-[16px] font-normal font-montreal leading-normal flex items-center h-full">
                   <a href="tel:+918714650111" className="hover:underline">+918714650111</a>
                 </div>
               </div>
@@ -105,8 +127,7 @@ const ContactForm = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                 </div>
-                <div className="text-white text-[15px] sm:text-[16px] font-normal font-montreal leading-normal">
-                  <div className="text-[12px] text-white/70 font-light mb-0.5">Mail</div>
+                <div className="text-white text-[15px] sm:text-[16px] font-normal font-montreal leading-normal flex items-center h-full">
                   <a href="mailto:sales@wisbato.com" className="hover:underline">sales@wisbato.com</a>
                 </div>
               </div>
@@ -119,8 +140,7 @@ const ContactForm = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
                 </div>
-                <div className="text-white text-[15px] sm:text-[16px] font-normal font-montreal leading-relaxed">
-                  <div className="text-[12px] text-white/70 font-light mb-0.5">Address</div>
+                <div className="text-white text-[15px] sm:text-[16px] font-normal font-montreal leading-relaxed flex items-center h-full">
                   <span>
                     4th Floor, City Corner Building, West Nadakkave,
                     <br />
@@ -133,21 +153,16 @@ const ContactForm = () => {
 
           {/* Social Icons */}
           <div className="flex items-center gap-4 z-10">
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-black/15 flex items-center justify-center text-white hover:bg-black/30 transition-colors duration-200 cursor-pointer">
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            <a href="https://www.linkedin.com/company/wisbato/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-black flex items-center justify-center text-white hover:bg-black/80 transition-colors duration-200 cursor-pointer shadow-sm">
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
               </svg>
             </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-black/15 flex items-center justify-center text-white hover:bg-black/30 transition-colors duration-200 cursor-pointer">
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+            <a href="https://www.instagram.com/wisbatosoftware/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-black flex items-center justify-center text-white hover:bg-black/80 transition-colors duration-200 cursor-pointer shadow-sm">
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
                 <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
                 <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
                 <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-              </svg>
-            </a>
-            <a href="https://discord.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-black/15 flex items-center justify-center text-white hover:bg-black/30 transition-colors duration-200 cursor-pointer">
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028 14.09 14.09 0 001.226-1.994.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.894.077.077 0 01-.008-.128c.126-.093.252-.19.372-.287a.075.075 0 01.077-.011c3.92 1.793 8.18 1.793 12.061 0a.073.073 0 01.078.009c.12.099.246.195.373.289a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.894.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.156 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.156 2.418z"/>
               </svg>
             </a>
           </div>
@@ -182,9 +197,6 @@ const ContactForm = () => {
             </div>
           ) : (
             <form onSubmit={handleSubmit}>
-              <p className="text-[#555555] text-[14px] sm:text-[15px] font-normal font-montreal leading-relaxed mb-6">
-                Fill the form and our team will contact you within 24 hours to understand your requirement and provide suitable pricing.
-              </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-8 lg:gap-x-10">
                 
                 {/* First Name */}
@@ -213,7 +225,6 @@ const ContactForm = () => {
                     name="company_name"
                     value={formData.company_name}
                     onChange={handleChange}
-                    required
                     placeholder="Enter company name"
                     className="border border-[#8D8D8D]/50 focus:border-[#F79135] transition-colors rounded-lg px-[14px] py-[10px] text-[#222222] placeholder-[#8D8D8D]/60 text-[14px] font-medium bg-white outline-none w-full font-montreal"
                   />
@@ -240,18 +251,47 @@ const ContactForm = () => {
                   <label className="text-[#8D8D8D] text-[13px] font-medium leading-5 font-montreal">
                     Service Interested In
                   </label>
-                  <select
-                    name="service_interested"
-                    value={formData.service_interested}
-                    onChange={handleChange}
-                    className="border border-[#8D8D8D]/50 focus:border-[#F79135] transition-colors rounded-lg px-[14px] py-[10px] text-[#222222] text-[14px] font-medium bg-white outline-none w-full font-montreal"
-                  >
-                    <option value="Website">Website</option>
-                    <option value="Mobile App">Mobile App</option>
-                    <option value="Digital Marketing">Digital Marketing</option>
-                    <option value="Branding">Branding</option>
-                    <option value="Technical Support">Technical Support</option>
-                  </select>
+                  <div className="relative" ref={dropdownRef}>
+                    <div
+                      className={`border ${isDropdownOpen ? 'border-[#F79135] ring-1 ring-[#F79135]/20' : 'border-[#8D8D8D]/50'} transition-all duration-300 rounded-lg px-[14px] py-[10px] text-[#222222] text-[14px] font-medium bg-white w-full font-montreal flex justify-between items-center cursor-pointer`}
+                      onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                    >
+                      <span>{formData.service_interested}</span>
+                      <svg 
+                        className={`w-4 h-4 text-[#8D8D8D] transition-transform duration-300 ${isDropdownOpen ? 'rotate-180 text-[#F79135]' : ''}`} 
+                        fill="none" 
+                        stroke="currentColor" 
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </div>
+
+                    <AnimatePresence>
+                      {isDropdownOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -10 }}
+                          transition={{ duration: 0.2, ease: "easeOut" }}
+                          className="absolute z-50 w-full mt-2 bg-white border border-[#E5E5E5] rounded-lg shadow-xl overflow-hidden py-1"
+                        >
+                          {serviceOptions.map((option) => (
+                            <div
+                              key={option}
+                              className={`px-[14px] py-[10px] text-[14px] font-medium font-montreal cursor-pointer transition-colors ${formData.service_interested === option ? 'bg-[#F79135]/10 text-[#F79135]' : 'text-[#222222] hover:bg-[#F9F9F9] hover:text-[#F79135]'}`}
+                              onClick={() => {
+                                setFormData((prev) => ({ ...prev, service_interested: option }));
+                                setIsDropdownOpen(false);
+                              }}
+                            >
+                              {option}
+                            </div>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
                 </div>
 
                 {/* Business Type */}
@@ -264,7 +304,6 @@ const ContactForm = () => {
                     name="business_type"
                     value={formData.business_type}
                     onChange={handleChange}
-                    required
                     placeholder="Enter business type"
                     className="border border-[#8D8D8D]/50 focus:border-[#F79135] transition-colors rounded-lg px-[14px] py-[10px] text-[#222222] placeholder-[#8D8D8D]/60 text-[14px] font-medium bg-white outline-none w-full font-montreal"
                   />
@@ -279,6 +318,7 @@ const ContactForm = () => {
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
+                    required
                     placeholder="Write your message.."
                     className="border border-[#8D8D8D]/50 focus:border-[#F79135] transition-colors rounded-lg px-[14px] py-[10px] text-[#222222] placeholder-[#8D8D8D]/60 text-[14px] font-medium bg-white outline-none w-full resize-y min-h-[100px] font-montreal"
                   />

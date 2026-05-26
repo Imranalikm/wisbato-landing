@@ -53,27 +53,16 @@ const Footer: React.FC = () => {
           
           {/* Left Text */}
           <p className="text-[#666666] text-[13px] sm:text-[14px] font-light text-center lg:text-left leading-relaxed">
-            Wisbato Technologies Pvt. Ltd. Calicut, Kerala, India <br />
             © {new Date().getFullYear()} Wisbato. All Rights Reserved.
           </p>
-
+                   
           {/* Right Links */}
           <div className="flex flex-wrap items-center justify-center lg:justify-end gap-x-5 gap-y-2.5 sm:gap-8">
-            <a
-              href="/privacy-policy"
-              className="text-[#666666] text-[13px] sm:text-[14px] font-light hover:text-black transition-colors duration-300"
-            >
-              Privacy Policy
-            </a>
-            <a
-              href="/terms"
-              className="text-[#666666] text-[13px] sm:text-[14px] font-light hover:text-black transition-colors duration-300"
-            >
-              Terms of Service
-            </a>
-            <p className="text-[#666666] text-[13px] sm:text-[14px] font-light">
-              Made with innovation by Wisbato
-            </p>
+            <div className="flex items-center gap-8 sm:gap-12 text-[#666666] text-[13px] sm:text-[14px] font-light tracking-wide">
+              <span>Kerala</span>
+              <span>Mumbai</span>
+              <span>UAE</span>
+            </div>
           </div>
 
         </div>
